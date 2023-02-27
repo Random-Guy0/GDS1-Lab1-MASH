@@ -1,10 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private TMP_Text soldiersInHelicopterText;
+    [SerializeField] private TMP_Text soldiersRescuedText;
+    
     private int soldiersInHelicopter;
     private int soldiersRescued;
 
@@ -17,6 +21,7 @@ public class GameManager : MonoBehaviour
     public void PickupSoldier()
     {
         soldiersInHelicopter++;
+        UpdateSoldiersInHelicopterText();
     }
 
     public int GetSoldiersInHelicopter()
@@ -28,5 +33,17 @@ public class GameManager : MonoBehaviour
     {
         soldiersRescued += soldiersInHelicopter;
         soldiersInHelicopter = 0;
+        UpdateSoldiersInHelicopterText();
+        UpdateSoldiersRescuedText();
+    }
+
+    private void UpdateSoldiersInHelicopterText()
+    {
+        soldiersInHelicopterText.SetText("Soldiers In Helicopter: " + soldiersInHelicopter);
+    }
+
+    private void UpdateSoldiersRescuedText()
+    {
+        soldiersRescuedText.SetText("Soldiers Rescued: " + soldiersRescued);
     }
 }
