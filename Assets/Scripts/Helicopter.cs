@@ -6,14 +6,20 @@ using UnityEngine.InputSystem;
 
 public class Helicopter : MonoBehaviour
 {
+    [SerializeField] private Animator anim;
+    
     [SerializeField] private float moveSpeed;
     private Vector2 moveAmount;
+
+    private int soldierCount;
     
     private Camera mainCamera;
     
     private void Start()
     {
         mainCamera = Camera.main;
+
+        soldierCount = 0;
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -52,6 +58,19 @@ public class Helicopter : MonoBehaviour
             Vector3 rotation = transform.rotation.eulerAngles;
             rotation.y = 180.0f;
             transform.rotation = Quaternion.Euler(rotation);
+        }
+    }
+    
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Soldier") && soldierCount < 3)
+        {
+            soldierCount++;
+            Destroy(other.gameObject);
+            if (soldierCount == 3)
+            {
+                anim.SetBool("helicopterFull", true);
+            }
         }
     }
 }
