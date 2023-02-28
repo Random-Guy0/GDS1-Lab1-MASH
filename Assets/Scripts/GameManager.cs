@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverScreen;
 
     [SerializeField] private GameObject soldierPrefab;
+
+    [SerializeField] private AudioSource soldierPickupSound;
     
     private int soldiersInHelicopter;
     private int soldiersRescued;
@@ -43,6 +45,7 @@ public class GameManager : MonoBehaviour
     {
         soldiersInHelicopter++;
         UpdateSoldiersInHelicopterText();
+        soldierPickupSound.Play();
     }
 
     public int GetSoldiersInHelicopter()
@@ -96,7 +99,7 @@ public class GameManager : MonoBehaviour
         soldiers = GameObject.FindGameObjectsWithTag("Soldier");
         foreach (GameObject soldier in soldiers)
         {
-            Destroy(soldier);
+            DestroyImmediate(soldier);
         }
         
         for (int i = 0; i < soldierPositions.Length; i++)
