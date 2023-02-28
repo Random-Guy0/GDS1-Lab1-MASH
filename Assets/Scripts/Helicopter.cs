@@ -15,11 +15,15 @@ public class Helicopter : MonoBehaviour
     private Camera mainCamera;
 
     private bool gameInProgress;
+
+    private Vector2 initialPosition;
     
     private void Start()
     {
         mainCamera = Camera.main;
         gameInProgress = true;
+
+        initialPosition = transform.position;
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -89,5 +93,12 @@ public class Helicopter : MonoBehaviour
     public void EndGame()
     {
         gameInProgress = false;
+    }
+
+    public void StartGame()
+    {
+        transform.position = initialPosition;
+        gameInProgress = true;
+        anim.SetBool("helicopterFull", false);
     }
 }

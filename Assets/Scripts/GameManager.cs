@@ -15,14 +15,28 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject winScreen;
     [SerializeField] private GameObject gameOverScreen;
+
+    [SerializeField] private GameObject soldierPrefab;
     
     private int soldiersInHelicopter;
     private int soldiersRescued;
+
+    private GameObject[] soldiers;
+    private Vector2[] soldierPositions;
 
     private void Start()
     {
         soldiersInHelicopter = 0;
         soldiersRescued = 0;
+
+        soldiers = GameObject.FindGameObjectsWithTag("Soldier");
+        soldierPositions = new Vector2[soldiers.Length];
+        for (int i = 0; i < soldiers.Length; i++)
+        {
+            soldierPositions[i] = soldiers[i].transform.position;
+        }
+
+        soldiersOnField = soldiers.Length;
     }
 
     public void PickupSoldier()
@@ -74,6 +88,22 @@ public class GameManager : MonoBehaviour
 
     public void ResetGame()
     {
+        soldiersRescued = 0;
+        soldiersInHelicopter = 0;
+        UpdateSoldiersInHelicopterText();
+        UpdateSoldiersRescuedText();
+
+        for (int i = 0; i < soldierPositions.Length; i++)
+        {
+            Destroy(soldiers[i]);
+            GameObject.Instantiate(soldierPrefab, soldierPositions[i], Quaternion.identity);
+        }
         
+        soldiers = GameObject.FindGameObjectsWithTag("Soldier");
+        soldiersOnField = soldiers.Length;
+        
+        winScreen.SetActive(false);
+        gameOverScreen.SetActive(false);
+        helicopter.StartGame();
     }
 }
