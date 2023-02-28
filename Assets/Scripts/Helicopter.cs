@@ -83,7 +83,11 @@ public class Helicopter : MonoBehaviour
         else if (other.CompareTag("Tree"))
         {
             gameManager.GameOver();
-            gameInProgress = false;
         }
+    }
+
+    public void EndGame()
+    {
+        gameInProgress = false;
     }
 }

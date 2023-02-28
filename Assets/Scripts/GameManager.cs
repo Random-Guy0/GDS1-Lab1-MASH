@@ -6,8 +6,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private int soldiersOnField;
+    
     [SerializeField] private TMP_Text soldiersInHelicopterText;
     [SerializeField] private TMP_Text soldiersRescuedText;
+
+    [SerializeField] private Helicopter helicopter;
+
+    [SerializeField] private GameObject winScreen;
     
     private int soldiersInHelicopter;
     private int soldiersRescued;
@@ -32,14 +38,27 @@ public class GameManager : MonoBehaviour
     public void DropOffSoldiers()
     {
         soldiersRescued += soldiersInHelicopter;
+        soldiersOnField -= soldiersInHelicopter;
         soldiersInHelicopter = 0;
         UpdateSoldiersInHelicopterText();
         UpdateSoldiersRescuedText();
+
+        if (soldiersOnField == 0)
+        {
+            Win();
+        }
     }
 
     public void GameOver()
     {
         Debug.Log("GAME OVER");
+        helicopter.EndGame();
+    }
+
+    public void Win()
+    {
+        winScreen.SetActive(true);
+        helicopter.EndGame();
     }
 
     private void UpdateSoldiersInHelicopterText()
@@ -50,5 +69,10 @@ public class GameManager : MonoBehaviour
     private void UpdateSoldiersRescuedText()
     {
         soldiersRescuedText.SetText("Soldiers Rescued: " + soldiersRescued);
+    }
+
+    public void ResetGame()
+    {
+        
     }
 }
