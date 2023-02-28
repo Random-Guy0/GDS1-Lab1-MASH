@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
@@ -86,6 +87,14 @@ public class GameManager : MonoBehaviour
         soldiersRescuedText.SetText("Soldiers Rescued: " + soldiersRescued);
     }
 
+    public void ResetKey(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            ResetGame();
+        }
+    }
+
     public void ResetGame()
     {
         int numSoldiers = Random.Range(minMaxSoldiers.x, minMaxSoldiers.y + 1);
@@ -139,31 +148,25 @@ public class GameManager : MonoBehaviour
     private List<Vector2> GeneratePotentialPoints()
     {
         Camera mainCamera = Camera.main;
-        Vector2 maxPoint = mainCamera.ViewportToWorldPoint(new Vector2(0.9f, 0.9f));
+        Vector2 maxPoint = mainCamera.ViewportToWorldPoint(new Vector2(0.95f, 0.95f));
         Vector2 minPoint = mainCamera.ViewportToWorldPoint(new Vector2(0.5f, 0.1f));
 
         List <Vector2> potentialPoints = new List<Vector2>();
 
-        Vector2 currentX = minPoint + new Vector2(placementDistance, 0.0f);
-        while (currentX.x < maxPoint.x)
+        Vector2 current = minPoint;
+        while (current.x < maxPoint.x)
         {
-            potentialPoints.Add(currentX);
-            currentX.x += placementDistance;
-        }
-        
-        Vector2 currentY = minPoint + new Vector2(0.0f, placementDistance);
-        while (currentY.y < maxPoint.y)
-        {
-            potentialPoints.Add(currentY);
-            currentY.y += placementDistance;
-        }
-        
-        Vector2 currentBoth = minPoint + new Vector2(placementDistance, placementDistance);
-        while (currentBoth.x < maxPoint.x && currentBoth.y < maxPoint.y)
-        {
-            potentialPoints.Add(currentBoth);
-            currentBoth.x += placementDistance;
-            currentBoth.y += placementDistance;
+            potentialPoints.Add(current);
+
+            current.y += placementDistance;
+            while (current.y <= maxPoint.y)
+            {
+                potentialPoints.Add(current);
+                current.y += placementDistance;
+            }
+
+            current.x += placementDistance;
+            current.y = minPoint.y;
         }
         
         return potentialPoints;

@@ -164,8 +164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5435bf20e512e5942b1e07c26b7a7945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minMaxSoldiers: {x: 3, y: 9}
-  minMaxTrees: {x: 3, y: 9}
+  minMaxSoldiers: {x: 5, y: 9}
+  minMaxTrees: {x: 2, y: 9}
   soldiersInHelicopterText: {fileID: 1787879358}
   soldiersRescuedText: {fileID: 682795601}
   helicopter: {fileID: 13031167}
@@ -1850,7 +1850,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2409892178534700730, guid: 6f9f8d9067865da479d1d8826ec7ab61, type: 3}
       propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2409892178534700730, guid: 6f9f8d9067865da479d1d8826ec7ab61, type: 3}
       propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1862,7 +1862,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2409892178534700730, guid: 6f9f8d9067865da479d1d8826ec7ab61, type: 3}
       propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ResetGame
+      value: ResetKey
       objectReference: {fileID: 0}
     - target: {fileID: 2409892178534700730, guid: 6f9f8d9067865da479d1d8826ec7ab61, type: 3}
       propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
