@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Helicopter helicopter;
 
     [SerializeField] private GameObject winScreen;
+    [SerializeField] private GameObject gameOverScreen;
     
     private int soldiersInHelicopter;
     private int soldiersRescued;
@@ -51,7 +52,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        Debug.Log("GAME OVER");
+        gameOverScreen.SetActive(true);
         helicopter.EndGame();
     }
 
