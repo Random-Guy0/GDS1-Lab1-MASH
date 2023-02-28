@@ -37,6 +37,11 @@ public class GameManager : MonoBehaviour
         UpdateSoldiersRescuedText();
     }
 
+    public void GameOver()
+    {
+        Debug.Log("GAME OVER");
+    }
+
     private void UpdateSoldiersInHelicopterText()
     {
         soldiersInHelicopterText.SetText("Soldiers In Helicopter: " + soldiersInHelicopter);

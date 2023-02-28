@@ -13,10 +13,13 @@ public class Helicopter : MonoBehaviour
     private Vector2 moveAmount;
 
     private Camera mainCamera;
+
+    private bool gameInProgress;
     
     private void Start()
     {
         mainCamera = Camera.main;
+        gameInProgress = true;
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -31,7 +34,7 @@ public class Helicopter : MonoBehaviour
         currentPosition += moveSpeed * Time.deltaTime * moveAmount;
 
         Vector2 viewportPosition = mainCamera.WorldToViewportPoint(currentPosition);
-
+        
         if (viewportPosition.x < 0.1f || viewportPosition.x > 0.9f)
         {
             currentPosition.x = transform.position.x;
@@ -42,19 +45,22 @@ public class Helicopter : MonoBehaviour
             currentPosition.y = transform.position.y;
         }
 
-        transform.position = currentPosition;
-        
-        if (moveAmount.x > 0.0f)
+        if (gameInProgress)
         {
-            Vector3 rotation = transform.rotation.eulerAngles;
-            rotation.y = 0.0f;
-            transform.rotation = Quaternion.Euler(rotation);
-        }
-        else if (moveAmount.x < 0.0f)
-        {
-            Vector3 rotation = transform.rotation.eulerAngles;
-            rotation.y = 180.0f;
-            transform.rotation = Quaternion.Euler(rotation);
+            transform.position = currentPosition;
+
+            if (moveAmount.x > 0.0f)
+            {
+                Vector3 rotation = transform.rotation.eulerAngles;
+                rotation.y = 0.0f;
+                transform.rotation = Quaternion.Euler(rotation);
+            }
+            else if (moveAmount.x < 0.0f)
+            {
+                Vector3 rotation = transform.rotation.eulerAngles;
+                rotation.y = 180.0f;
+                transform.rotation = Quaternion.Euler(rotation);
+            }
         }
     }
     
@@ -73,6 +79,11 @@ public class Helicopter : MonoBehaviour
         {
             gameManager.DropOffSoldiers();
             anim.SetBool("helicopterFull", false);
+        }
+        else if (other.CompareTag("Tree"))
+        {
+            gameManager.GameOver();
+            gameInProgress = false;
         }
     }
 }
