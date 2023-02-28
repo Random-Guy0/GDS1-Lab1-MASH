@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
             soldierPositions[i] = soldiers[i].transform.position;
         }
 
-        soldiersOnField = soldiers.Length;
+        //soldiersOnField = soldiers.Length;
     }
 
     public void PickupSoldier()
@@ -93,9 +93,14 @@ public class GameManager : MonoBehaviour
         UpdateSoldiersInHelicopterText();
         UpdateSoldiersRescuedText();
 
+        soldiers = GameObject.FindGameObjectsWithTag("Soldier");
+        foreach (GameObject soldier in soldiers)
+        {
+            Destroy(soldier);
+        }
+        
         for (int i = 0; i < soldierPositions.Length; i++)
         {
-            Destroy(soldiers[i]);
             GameObject.Instantiate(soldierPrefab, soldierPositions[i], Quaternion.identity);
         }
         
